@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Almacen David Díaz</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="function.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>David</h1>
+		<ul class="nav nav-tabs" id="myTab">
+			<li role="presentation" class="active"><a href="#carga" aria-controls="carga" role="tab" data-toggle="tab">Carga</a></li>
+			<li role="presentation"><a href="#descarga" aria-controls="descarga" role="tab" data-toggle="tab">Descarga</a></li>
+			<li role="presentation"><a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicación</a></li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="carga">CARGA</div>
+			<div role="tabpanel" class="tab-pane" id="descarga">
+				<form class="form-horizontal">
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Compañia</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-12">
+								<label for="selectCompay" class="control-label">Selecione Compañia</label>
+								<select class="form-control">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-12">
+								<label for="companyName" class="control-label">Nombre</label>
+								<input type="text" class="form-control" id="companyName" placeholder="Nombre">
+							</div>
+							<div class="form-group col-sm-6">
+								<button type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+						</div>
+						
+					</div>
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Conductor</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-12">
+								<label for="selectDriver" class="control-label">Selecione Conductor</label>
+								<select class="form-control">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="driverName" class="control-label">Nombre</label>
+								<input type="text" class="form-control" id="driverName" placeholder="Nombre">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="driverSurname" class="control-label">Apellido</label>
+								<input type="text" class="form-control" id="driverSurname" placeholder="Apellido">
+							</div>
+							
+							<div class="form-group col-sm-12">
+								<label for="driverPhone" class="control-label">Teléfono</label>
+								<input type="text" class="form-control" id="driverPhone" placeholder="Teléfono">
+							</div>
+							<div class="form-group col-sm-6">
+								<button type="button" class="btn btn-info col-sm-12" data-toggle="modal" data-target="#driverAddress">Añadir Dirección</button>
+							</div>
+							<div class="form-group col-sm-6">
+								<button type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Camión</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-12">
+								<label for="vehicleSelect" class="control-label">Selecione el Camión</label>
+								<select class="form-control">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-12">
+								<label for="vehicleNumberPlate" class="control-label">Número de matrícula</label>
+								<input type="text" class="form-control" id="vehicleNumberPlate" placeholder="Matrícula">
+							</div>
+							<div class="form-group col-sm-6">
+								<button type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Productor</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-12">
+								<label for="productFile" class="control-label">Fichero de productos</label>
+								<input type="file" class="form-control" id="productFile" placeholder="Matrícula">
+							</div>
+							<div class="form-group col-sm-6">
+								<button type="button" class="btn btn-info col-sm-12">Visualizar</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<button type="button" class="btn btn-info col-sm-12">Enviar Formulario</button>
+					</div>
+				</form>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="ubicacion">UBICACIÓN</div>
+		</div>
+	</div>
+	<div class="modal fade" id="driverAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Dirección</h4>
+	      		</div>
+		      	<div class="modal-body">
+		      		<div class="clearfix">
+			        	<div class="form-group col-sm-6">
+							<label for="driverBlock" class="control-label">Bloque</label>
+							<input type="text" class="form-control" id="driverBlock" placeholder="Bloque">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverDoor" class="control-label">Puerta</label>
+							<input type="text" class="form-control" id="driverDoor" placeholder="Puerta">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverFloor" class="control-label">Piso</label>
+							<input type="text" class="form-control" id="driverFloor" placeholder="Piso">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverLocality" class="control-label">Localidad</label>
+							<input type="text" class="form-control" id="driverLocality" placeholder="Localidad">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverNameVia" class="control-label">Nombre de la via</label>
+							<input type="text" class="form-control" id="driverNameVia" placeholder="Nombre de la via">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverNumber" class="control-label">Número</label>
+							<input type="text" class="form-control" id="driverNumber" placeholder="Número">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverProvince" class="control-label">Provincia</label>
+							<input type="text" class="form-control" id="driverProvince" placeholder="Provincia">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverStairs" class="control-label">Escalera</label>
+							<input type="text" class="form-control" id="driverStairs" placeholder="Escalera">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverTypeVia" class="control-label">Tipo de via</label>
+							<input type="text" class="form-control" id="driverTypeVia" placeholder="Tipo de via">
+						</div>
+					</div>
+				</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        	<button type="button" class="btn btn-primary">Save changes</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+
+</body>
+</html>
