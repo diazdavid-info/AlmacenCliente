@@ -52,4 +52,30 @@ switch ($_GET["typeRequest"]){
 		// Response Body
 		echo $api_response_body;
 		break;
+	case "getAllDrivers":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, array('Accept: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $service_url . "getAllDrivers");
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "getAllVehicles":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, array('Accept: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $service_url . "getAllVehicles");
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
 }
