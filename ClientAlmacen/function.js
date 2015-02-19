@@ -11,7 +11,7 @@ window.onload = function(){
 }
 
 function init_app(){
-	requestServices({typeRequest: 'getAllCompanies'}, printCompanies);
+	getAllCompanies();
 	requestServices({typeRequest: 'getAllDrivers'}, printDrivers);
 	requestServices({typeRequest: 'getAllVehicles'}, printVehicles);
 	
@@ -20,15 +20,22 @@ function init_app(){
 
 function startEvent(){
 	$('#sendCompany').click(sendCompany);
-	$('#refreshCompany').click(requestServices({typeRequest: 'getAllCompanies'}, printCompanies));
+	$('#refreshCompany').click(getAllCompanies);
+	$('#sendVehicle').click(sendVehicle);
 }
 
 function sendCompany(e){
 	console.log(e);
-	requestServices({typeRequest: 'sendCompany', nameCompany: $('#companyName').val()}, null);
+	requestServices({typeRequest: 'sendCompany', nameCompany: $('#companyName').val()}, getAllCompanies);
+	$('#companyName').val("");
+}
+
+function sendVehicle(e){
+	requestServices({typeRequest: 'sendVehicle', numberPlate: $('#vehicleNumberPlate').val()}, null);
 }
 
 function printCompanies(response){
+	console.log(response);
 	var json = JSON.parse(response);
 	$('#selectCompay').empty();
 	$.each(json, function(k,v){
@@ -52,10 +59,15 @@ function printVehicles(response){
 	});
 }
 
+function getAllCompanies(){
+	requestServices({typeRequest: 'getAllCompanies'}, printCompanies);
+}
+
 function requestServices(params, callBack){
 	$.ajax({
 		url: 'services.php',
 		type: 'GET',
+		cache: false,
 		data: params,
 		success: callBack,
 		error: callBackError
