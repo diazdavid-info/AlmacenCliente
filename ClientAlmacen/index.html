@@ -44,7 +44,7 @@
 					</div>
 					<div class="panel panel-primary col-sm-6">
 						<div class="panel-heading col-sm-12">Conductor</div>
-						<div class="panel-body col-sm-12">
+						<div class="panel-body col-sm-12" id="driverData">
 							<div class="form-group col-sm-12">
 								<label for="selectDriver" class="control-label">Selecione Conductor</label>
 								<select id="selectDriver" class="form-control">
@@ -67,7 +67,7 @@
 								<button type="button" class="btn btn-info col-sm-12" data-toggle="modal" data-target="#driverAddress">Añadir Dirección</button>
 							</div>
 							<div class="form-group col-sm-6">
-								<button type="button" class="btn btn-info col-sm-12">Guardar</button>
+								<button id="sendDriver" type="button" class="btn btn-info col-sm-12">Guardar</button>
 							</div>
 						</div>
 					</div>
@@ -116,10 +116,11 @@
 	        		<h4 class="modal-title" id="myModalLabel">Dirección</h4>
 	      		</div>
 		      	<div class="modal-body">
-		      		<div class="clearfix">
+		      		<div class="clearfix" id="driverAddress">
 			        	<div class="form-group col-sm-6">
 							<label for="driverBlock" class="control-label">Bloque</label>
 							<input type="text" class="form-control" id="driverBlock" placeholder="Bloque">
+							<input type="hidden" id="AddresId" value="">
 						</div>
 						<div class="form-group col-sm-6">
 							<label for="driverDoor" class="control-label">Puerta</label>
@@ -156,8 +157,8 @@
 					</div>
 				</div>
 		      	<div class="modal-footer">
-		        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        	<button type="button" class="btn btn-primary">Save changes</button>
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		        	<button id="sendAddres" type="button" class="btn btn-primary">Guardar</button>
 		      	</div>
 	    	</div>
 	  	</div>
