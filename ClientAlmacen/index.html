@@ -8,18 +8,236 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="xml2json.js"></script>
 	<script type="text/javascript" src="function.js"></script>
 </head>
 <body>
 	<div class="container">
 		<h1>David</h1>
 		<ul class="nav nav-tabs" id="myTab">
-			<li role="presentation" class="active"><a href="#carga" aria-controls="carga" role="tab" data-toggle="tab">Carga</a></li>
+			<li role="presentation" class="active"><a href="#addUser" aria-controls="addUser" role="tab" data-toggle="tab">Crear Usuarios</a></li>
+			<li role="presentation"><a href="#addProduct" aria-controls="addProduct" role="tab" data-toggle="tab">Añadir producto</a></li>
+			<li role="presentation"><a href="#carga" aria-controls="carga" role="tab" data-toggle="tab">Carga</a></li>
 			<li role="presentation"><a href="#descarga" aria-controls="descarga" role="tab" data-toggle="tab">Descarga</a></li>
 			<li role="presentation"><a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicación</a></li>
 		</ul>
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="carga">CARGA</div>
+			<div role="tabpanel" class="tab-pane active" id="addUser">
+				<form class="form-horizontal">
+					<div class="panel panel-primary col-sm-12">
+						<div class="panel-heading col-sm-12">Añadir Usuario</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-6">
+								<label for="selectTypeUser" class="control-label">Tipo de usuario</label>
+								<select id="selectTypeUser" class="form-control">
+									<option value="0">Seleccione un usuario</option>
+									<option value="1">Trabajador</option>
+									<option value="2">Conductor</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="nameTypeUser" class="control-label">Nombre</label>
+								<input type="text" class="form-control" id="nameTypeUser" placeholder="Nombre">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="surNameTypeUser" class="control-label">Apellido</label>
+								<input type="text" class="form-control" id="surNameTypeUser" placeholder="Apellido">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="telephoneTypeUser" class="control-label">Teléfono</label>
+								<input type="text" class="form-control" id="telephoneTypeUser" placeholder="Teléfono">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="provinceTypeUser" class="control-label">Provincia</label>
+								<input type="text" class="form-control" id="provinceTypeUser" placeholder="Provincia">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="localityTypeUser" class="control-label">Localidad</label>
+								<input type="text" class="form-control" id="localityTypeUser" placeholder="Localidad">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="typeViaTypeUser" class="control-label">Tipo de via</label>
+								<input type="text" class="form-control" id="typeViaTypeUser" placeholder="Tipo de via">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="nameViaTypeUser" class="control-label">Nombre de la via</label>
+								<input type="text" class="form-control" id="nameViaTypeUser" placeholder="Nombre de la via">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="numberTypeUser" class="control-label">Número</label>
+								<input type="text" class="form-control" id="numberTypeUser" placeholder="Número">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="blockTypeUser" class="control-label">Bloque</label>
+								<input type="text" class="form-control" id="blockTypeUser" placeholder="Bloque">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="stairsTypeUser" class="control-label">Escalera</label>
+								<input type="text" class="form-control" id="stairsTypeUser" placeholder="Escalera">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="floorTypeUser" class="control-label">Piso</label>
+								<input type="text" class="form-control" id="floorTypeUser" placeholder="Piso">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="doorTypeUser" class="control-label">Puerta</label>
+								<input type="text" class="form-control" id="doorTypeUser" placeholder="Puerta">
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="sendUser" type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="addProduct">
+				<form class="form-horizontal">
+					<div class="panel panel-primary col-sm-12">
+						<div class="panel-heading col-sm-12">Añadir Producto</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-6">
+								<label for="asinProduct" class="control-label">ASIN</label>
+								<input type="text" class="form-control" id="asinProduct" placeholder="ASIN">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="eanProduct" class="control-label">EAN</label>
+								<input type="text" class="form-control" id="eanProduct" placeholder="EAN">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="descriptionProduct" class="control-label">Descripción</label>
+								<input type="text" class="form-control" id="descriptionProduct" placeholder="Descripción">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="modelProduct" class="control-label">Modelo</label>
+								<input type="text" class="form-control" id="modelProduct" placeholder="Modelo">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="priceProduct" class="control-label">Precio</label>
+								<input type="text" class="form-control" id="priceProduct" placeholder="Precio">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="weightProduct" class="control-label">Peso</label>
+								<input type="text" class="form-control" id="weightProduct" placeholder="Peso">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="nameManufactureProduct" class="control-label">Fabricante</label>
+								<input type="text" class="form-control" id="nameManufactureProduct" placeholder="Fabricante">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="widthProduct" class="control-label">Ancho</label>
+								<input type="text" class="form-control" id="widthProduct" placeholder="Ancho">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="highProduct" class="control-label">Alto</label>
+								<input type="text" class="form-control" id="highProduct" placeholder="Alto">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="longProduct" class="control-label">Largo</label>
+								<input type="text" class="form-control" id="longProduct" placeholder="Largo">
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="sendProduct" type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="carga">
+				<form class="form-horizontal">
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Compañia</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-12">
+								<label for="selectCompanyLoad" class="control-label">Selecione Compañia</label>
+								<select id="selectCompanyLoad" class="form-control"></select>
+							</div>
+							<div class="form-group col-sm-12">
+								<label for="companyNameLoad" class="control-label">Nombre</label>
+								<input type="text" class="form-control" id="companyNameLoad" placeholder="Nombre">
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="sendCompanyLoad" type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="refreshCompany" type="button" class="btn btn-warning col-sm-12">Refrescar</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Conductor</div>
+						<div class="panel-body col-sm-12" id="driverData">
+							<div class="form-group col-sm-12">
+								<label for="selectDriverLoad" class="control-label">Selecione Conductor</label>
+								<select id="selectDriverLoad" class="form-control">
+								</select>
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="driverNameLoad" class="control-label">Nombre</label>
+								<input type="text" class="form-control" id="driverNameLoad" placeholder="Nombre">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="driverSurnameLoad" class="control-label">Apellido</label>
+								<input type="text" class="form-control" id="driverSurnameLoad" placeholder="Apellido">
+							</div>
+							
+							<div class="form-group col-sm-12">
+								<label for="driverPhoneLoad" class="control-label">Teléfono</label>
+								<input type="text" class="form-control" id="driverPhoneLoad" placeholder="Teléfono">
+							</div>
+							<div class="form-group col-sm-6">
+								<button type="button" class="btn btn-info col-sm-12" data-toggle="modal" data-target="#driverAddressLoad">Añadir Dirección</button>
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="sendDriverLoad" type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Camión</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-12">
+								<label for="vehicleSelectLoad" class="control-label">Selecione el Camión</label>
+								<select id="vehicleSelectLoad" class="form-control">
+								</select>
+							</div>
+							<div class="form-group col-sm-12">
+								<label for="vehicleNumberPlateLoad" class="control-label">Número de matrícula</label>
+								<input type="text" class="form-control" id="vehicleNumberPlateLoad" placeholder="Matrícula">
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="sendVehicleLoad" type="button" class="btn btn-info col-sm-12">Guardar</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary col-sm-6">
+						<div class="panel-heading col-sm-12">Pedidos</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-12">
+								<label for="orderFile" class="control-label">Fichero de productos</label>
+								<input type="file" class="form-control" id="orderFile">
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="fileOrder" type="button" class="btn btn-info col-sm-12">Visualizar</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary col-sm-12">
+						<div class="panel-heading col-sm-12">Trabajador</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-6">
+								<label for="workerSelectLoad" class="control-label">Selecione un trabajador</label>
+								<select id="workerSelectLoad" class="form-control">
+								</select>
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="sendForm" type="button" class="btn btn-info col-sm-12">Enviar Formulario</button>
+							</div>
+						</div>
+						
+					</div>
+					
+				</form>
+			</div>
 			<div role="tabpanel" class="tab-pane" id="descarga">
 				<form class="form-horizontal">
 					<div class="panel panel-primary col-sm-6">
@@ -89,23 +307,39 @@
 						</div>
 					</div>
 					<div class="panel panel-primary col-sm-6">
-						<div class="panel-heading col-sm-12">Productor</div>
+						<div class="panel-heading col-sm-12">Productos</div>
 						<div class="panel-body col-sm-12">
 							<div class="form-group col-sm-12">
 								<label for="productFile" class="control-label">Fichero de productos</label>
 								<input type="file" class="form-control" id="productFile" placeholder="Matrícula">
 							</div>
 							<div class="form-group col-sm-6">
-								<button type="button" class="btn btn-info col-sm-12">Visualizar</button>
+								<button id="fileProduct" type="button" class="btn btn-info col-sm-12">Visualizar</button>
 							</div>
 						</div>
 					</div>
-					<div class="form-group col-sm-6">
-						<button type="button" class="btn btn-info col-sm-12">Enviar Formulario</button>
+					<div class="panel panel-primary col-sm-12">
+						<div class="panel-heading col-sm-12">Trabajador</div>
+						<div class="panel-body col-sm-12">
+							<div class="form-group col-sm-6">
+								<label for="workerSelect" class="control-label">Selecione un trabajador</label>
+								<select id="workerSelect" class="form-control">
+								</select>
+							</div>
+							<div class="form-group col-sm-6">
+								<button id="sendForm" type="button" class="btn btn-info col-sm-12">Enviar Formulario</button>
+							</div>
+						</div>
+						
 					</div>
+					
 				</form>
 			</div>
-			<div role="tabpanel" class="tab-pane" id="ubicacion">UBICACIÓN</div>
+			<div role="tabpanel" class="tab-pane" id="ubicacion">
+				<table class="table col-sm-12" id="table-shelves">
+					
+				</table>
+			</div>
 		</div>
 	</div>
 	<div class="modal fade" id="driverAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -119,6 +353,61 @@
 		      		<div class="clearfix" id="driverAddress">
 			        	<div class="form-group col-sm-6">
 							<label for="driverBlock" class="control-label">Bloque</label>
+							<input type="text" class="form-control" id="driverBlock" placeholder="Bloque">
+							<input type="hidden" id="AddresId" value="">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverDoor" class="control-label">Puerta</label>
+							<input type="text" class="form-control" id="driverDoor" placeholder="Puerta">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverFloor" class="control-label">Piso</label>
+							<input type="text" class="form-control" id="driverFloor" placeholder="Piso">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverLocality" class="control-label">Localidad</label>
+							<input type="text" class="form-control" id="driverLocality" placeholder="Localidad">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverNameVia" class="control-label">Nombre de la via</label>
+							<input type="text" class="form-control" id="driverNameVia" placeholder="Nombre de la via">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverNumber" class="control-label">Número</label>
+							<input type="text" class="form-control" id="driverNumber" placeholder="Número">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverProvince" class="control-label">Provincia</label>
+							<input type="text" class="form-control" id="driverProvince" placeholder="Provincia">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverStairs" class="control-label">Escalera</label>
+							<input type="text" class="form-control" id="driverStairs" placeholder="Escalera">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="driverTypeVia" class="control-label">Tipo de via</label>
+							<input type="text" class="form-control" id="driverTypeVia" placeholder="Tipo de via">
+						</div>
+					</div>
+				</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		        	<button id="sendAddres" type="button" class="btn btn-primary">Guardar</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal fade" id="driverAddressLoad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Dirección</h4>
+	      		</div>
+		      	<div class="modal-body">
+		      		<div class="clearfix" id="driverAddress">
+			        	<div class="form-group col-sm-6">
+							<label for="driverBlock" class="control-label">Bloquee</label>
 							<input type="text" class="form-control" id="driverBlock" placeholder="Bloque">
 							<input type="hidden" id="AddresId" value="">
 						</div>

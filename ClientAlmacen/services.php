@@ -130,4 +130,86 @@ switch ($_GET["typeRequest"]){
 		$api_response_body = substr($api_response, $api_response_info['header_size']);
 		echo $api_response_body;
 		break;
+	case "sendWorker":
+		$api_request_parameters = array('nameCompany' => 'Todo perfecto');
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+		curl_setopt($ch, CURLOPT_HEADER, array('Accept: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveWorker?nameDriver=" . $_GET['nameDriver'] . "&surnameDriver=" . $_GET['surnameDriver'] .
+		"&telephone=" . $_GET['telephone'] . "&idAddress=" . $_GET['idAddress']);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($api_request_parameters));
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "sendProduct":
+		$parameter = "asinProduct=" . urlencode($_GET['asinProduct']) . "&eanProduct=" . urlencode($_GET['eanProduct']) . 
+					"&descriptionProduct=" . urlencode($_GET['descriptionProduct']) . "&modelProduct=" . urlencode($_GET['modelProduct']) . "&priceProduct=" . urlencode($_GET['priceProduct']) . 
+					"&weightProduct=" . urlencode($_GET['weightProduct']) . "&nameManufactureProduct=" . urlencode($_GET['nameManufactureProduct']) . "&widthProduct=" . urlencode($_GET['widthProduct']) . 
+					"&highProduct=" . urlencode($_GET['highProduct']) . "&longProduct=" . urlencode($_GET['longProduct']);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveProduct?" . $parameter);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "getAllShelves":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "getAllShelves");
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "sendUnload":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveUnload?company=" . $_GET['company'] . "&driver=" . $_GET['driver'] . "&vehicle=" . $_GET['vehicle'] . 
+					"&date=" . $_GET['date'] . "&time=" . $_GET['time'] . "&worker=" . $_GET['worker']);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "sendProductUnload":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveUnloadProduct?idUnload=" . $_GET['idUnload'] . "&idProduct=" . $_GET['idProduct']);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "getAllWorkers":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "getAllWorkers");
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
 }
