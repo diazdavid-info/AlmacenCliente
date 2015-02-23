@@ -162,6 +162,7 @@ switch ($_GET["typeRequest"]){
 		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
 		$api_response_body = substr($api_response, $api_response_info['header_size']);
 		echo $api_response_body;
+		//
 		break;
 	case "getAllShelves":
 		$ch = curl_init();

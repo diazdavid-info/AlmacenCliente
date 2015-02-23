@@ -71,10 +71,7 @@ function sendDriver(e){
 }
 
 function sendForm(e){
-	console.log("ENVIAR");
 	sendUnload();
-	//requestServices({typeRequest: 'sendProducts', products: jsonXml}, function(e){ console.log(e); });
-	console.log("ENVIADO");
 }
 
 function sendAddressUser(e){
@@ -132,7 +129,6 @@ function sendProduct(asinProduct, eanProduct, descriptionProduct, modelProduct, 
 }
 
 function sendProduct2(asinProduct, eanProduct, descriptionProduct, modelProduct, priceProduct, weightProduct, nameManufactureProduct, widthProduct, highProduct, longProduct){
-	console.log("Envia xml");
 	requestServices({
 		typeRequest: 'sendProduct',
 		asinProduct: asinProduct,
@@ -150,8 +146,6 @@ function sendProduct2(asinProduct, eanProduct, descriptionProduct, modelProduct,
 
 function sendProductUnload(response){
 	response = JSON.parse(response);
-	console.log("Product: "+response.mId);
-	console.log("Unload: "+idUnload);
 	requestServices({
 		typeRequest: 'sendProductUnload',
 		idProduct: response.mId,
@@ -293,7 +287,7 @@ function requestServices(params, callBack){
 	})
 }
 
-function callBackError(a,b,c){
+function callBackError(a,b,c){//
 	console.log("Error de llamada: ");
 	console.log(a);
 	console.log(b);
@@ -308,11 +302,7 @@ function dataProduct(e){
 
 function xmlToJson(xml){
 	var pepe = xml.getElementsByTagName('products');
-	//console.log(JSON.stringify(pepe));
-	//console.log(JSON.parse(xml.getElementsByTagName('products')));
-	//console.log(xml2json(xml.getElementsByTagName('products'),""))
 	jsonXml = xml2json(xml,"");
-	//console.log(jsonXml);
 }
 
 function readProductXml(){
@@ -325,37 +315,16 @@ function readProductXml(){
 		$.each(JSON.parse(ja), function(k,v){
 			$.each(v, function(k1,v1){
 				$.each(v1, function(k2,v2){
-					//console.log(k2);
 					sendProduct2(v2.asin, v2.asin, v2.description, v2.model, v2.price, v2.weight, v2.manufacturer.name, v2.measures.measure[0].value, v2.measures.measure[1].value, v2.measures.measure[2].value);
-//					console.log(v2.asin);
-//					console.log(v2.ean);
-//					console.log(v2.description);
-//					console.log(v2.model);
-//					console.log(v2.price);
-//					console.log(v2.weight);
-//					console.log(v2.manufacturer.name);
-//					console.log(v2.measures.measure[0].value);
-//					console.log(v2.measures.measure[1].value);
-//					console.log(v2.measures.measure[2].value);
 				});
 			});
 			
 		});
-		console.log("ID: "+idUnload);
 	});
 	reader.readAsText(file.files[0]);
-	
-//	$.each(json, function(k,v){
-//		$('#selectDriver').append('<option value='+v.mId+'>'+v.mName+'</option>');
-//	});
 }
 
 function saveIdUnload(response){
-	console.log(response);
 	idUnload = response;
 	readProductXml();
 }
-
-//function showXml(e){
-//	alert(stringXml);
-//}
