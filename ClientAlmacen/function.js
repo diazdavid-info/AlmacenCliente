@@ -3,6 +3,8 @@
  */
 var stringXml;
 var jsonXml;
+var stringXmlLoad;
+var jsonXmlLoad;
 var objXml;
 var idUnload;
 window.onload = function(){
@@ -30,10 +32,12 @@ function startEvent(){
 	$('#sendAddres').click(sendAddres);
 	$('#sendDriver').click(sendDriver);
 	$('#productFile').change(readXml);
+	$('#orderFile').change(readXmlLoad);
 	$('#fileProduct').click(readProductXml);
 	$('#sendForm').click(sendForm);
 	$('#sendUser').click(sendAddressUser);
 	$('#sendProduct').click(dataProduct);
+	$('#sendFormLoad').click(sendFormLoad);
 }
 
 function sendCompany(e){
@@ -74,6 +78,10 @@ function sendForm(e){
 	sendUnload();
 }
 
+function sendFormLoad(e){
+	sendLoad();
+}
+
 function sendAddressUser(e){
 	if($('#selectTypeUser').val() != 0){
 		requestServices({
@@ -93,13 +101,11 @@ function sendAddressUser(e){
 function sendUser(){
 	var callBack;
 	var send;
-	console.log("SENDUSER "+$('#selectTypeUser').val());
 	if($('#selectTypeUser').val() == 2){
-		console.log('conductor');
 		callBack = getAllDrivers;
 		send = 'sendDriver';
 	}else if($('#selectTypeUser').val() == 1){
-		callBack = null;
+		callBack = getAllWorkers;
 		send = 'sendWorker';
 	}
 	requestServices({
@@ -145,15 +151,18 @@ function sendProduct2(asinProduct, eanProduct, descriptionProduct, modelProduct,
 }
 
 function sendProductUnload(response){
+	console.log("sendProductUnload "+idUnload);
 	response = JSON.parse(response);
 	requestServices({
 		typeRequest: 'sendProductUnload',
 		idProduct: response.mId,
 		idUnload: idUnload}, null);
+	//console.log("sendProductUnload "+idUnload);
 	getAllShelves();
 }
 
 function sendUnload(){
+	console.log("ENVIAR UNLOAD");
 	var date = new Date();
 	requestServices({
 		typeRequest: 'sendUnload',
@@ -165,12 +174,48 @@ function sendUnload(){
 		worker: $('#workerSelect').val() }, saveIdUnload);
 }
 
+function sendLoad(){
+	console.log(jsonXmlLoad);
+	sendAddressClient();
+}
+
+function sendAddressClient(){
+	var ja = JSON.parse(jsonXmlLoad);
+	console.log(ja);
+	$.each(ja, function(k,v){
+		$.each(v, function(k1,v1){
+			requestServices({
+				typeRequest: 'sendAddres',
+				block: v1.customer.address.block,
+				door: v1.customer.address.door,
+				floor: v1.customer.address.floor,
+				locality: v1.customer.address.locality,
+				nameVia: v1.customer.address.namevia,
+				number: v1.customer.address.number,
+				province: v1.customer.address.province,
+				stairs: v1.customer.address.stairs,
+				typeVia: v1.customer.address.typevia}, function(response){ console.log(response); });
+		});
+		
+	});
+}
+
 function readXml(e){
 	objXml = e;
 	var reader = new FileReader();
 	reader.onload = (function(theFile){
 		stringXml = theFile.target.result;
-		jsonXml = xmlToJson($.parseXML(stringXml));
+		jsonXml = xmlToJson($.parseXML(stringXml), 'products');
+	});
+	reader.readAsText(e.target.files[0]);
+}
+
+function readXmlLoad(e){
+	objXml = e;
+	var reader = new FileReader();
+	reader.onload = (function(theFile){
+		stringXmlLoad = theFile.target.result;
+		jsonXmlLoad = xmlToJson($.parseXML(stringXmlLoad), 'orders');
 	});
 	reader.readAsText(e.target.files[0]);
 }
@@ -300,9 +345,10 @@ function dataProduct(e){
 			$('#highProduct').val(), $('#longProduct').val());
 }
 
-function xmlToJson(xml){
-	var pepe = xml.getElementsByTagName('products');
-	jsonXml = xml2json(xml,"");
+function xmlToJson(xml, raiz){
+	var pepe = xml.getElementsByTagName(raiz);
+	var jsonXml = xml2json(xml,"");
+	return jsonXml;
 }
 
 function readProductXml(){
