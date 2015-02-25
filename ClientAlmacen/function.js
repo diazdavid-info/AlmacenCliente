@@ -7,6 +7,7 @@ var stringXmlLoad;
 var jsonXmlLoad;
 var objXml;
 var idUnload;
+var idLoad;
 window.onload = function(){
 	$('#myTab a').click(function (e) {
 		e.preventDefault()
@@ -80,6 +81,7 @@ function sendForm(e){
 
 function sendFormLoad(e){
 	sendLoad();
+	startLoad();
 }
 
 function sendAddressUser(e){
@@ -174,7 +176,7 @@ function sendUnload(){
 		worker: $('#workerSelect').val() }, saveIdUnload);
 }
 
-function sendLoad(){
+function startLoad(){
 	console.log(jsonXmlLoad);
 	sendAddressClient();
 }
@@ -194,10 +196,83 @@ function sendAddressClient(){
 				number: v1.customer.address.number,
 				province: v1.customer.address.province,
 				stairs: v1.customer.address.stairs,
-				typeVia: v1.customer.address.typevia}, function(response){ console.log(response); });
+				typeVia: v1.customer.address.typevia}, sendClient);
 		});
 		
 	});
+}
+
+function sendClient(response){
+	response = JSON.parse(response);
+	var ja = JSON.parse(jsonXmlLoad);
+	$.each(ja, function(k,v){
+		$.each(v, function(k1,v1){
+			requestServices({
+				typeRequest: 'sendClient',
+				name: v1.customer.name,
+				surname: v1.customer.surname,
+				telephone: v1.customer.telephone,
+				address: response.mId}, function(response){
+					sendOrder(response,v1);
+				});
+		});
+		
+	});
+}
+
+function sendOrder(idClient,v1){
+	var date = new Date();
+	requestServices({
+		typeRequest: 'sendOrder',
+		date: date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
+		person: idClient,
+		price: '0.00'}, function(response){
+			sendLoadOrders(response,v1);
+		});
+}
+
+function sendLoadOrders(response,v1){
+	console.log("IDLOAD: "+idLoad);
+	var idOrder = response;
+	requestServices({
+		typeRequest: 'sendLoadOrders',
+		load: idLoad,
+		order: response }, function(response){
+			sendOrderProduct(idOrder,v1);
+		});
+}
+
+function sendOrderProduct(idOrder,v1){
+	$.each(v1.products, function(k2,v2){
+		$.each(v2, function(k3,v3){
+			console.log(v3.asin);
+			requestServices({
+				typeRequest: 'sendOrderProduct',
+				asin: v3.asin,
+				order: idOrder}, checkLoad);
+		});
+	});
+}
+
+function checkLoad(response){
+	console.log(response);
+	response = JSON.parse(response);
+	if(response.result == "false"){
+		alert("El producto con código ASIN: "+response.asin+" no se encuentra en el Stock");
+	}
+	getAllShelves();
+}
+
+function sendLoad(){
+	var date = new Date();
+	requestServices({
+		typeRequest: 'sendLoad',
+		company: $('#selectCompanyLoad').val(),
+		driver: $('#selectDriverLoad').val(),
+		vehicle: $('#vehicleSelectLoad').val(),
+		date: date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
+		time: date.getHours()+":"+date.getMinutes(),
+		worker: $('#workerSelectLoad').val() }, function(response){ idLoad = response; });
 }
 
 function readXml(e){
@@ -270,13 +345,15 @@ function printAddresUser(response){
 }
 
 function printShelves(response){
+	var num = 0;
 	$('#table-shelves').empty();
-	$('#table-shelves').append('<tr><th>ID estantería</th><th>ID situación</th><th>ID producto</th></tr>');
+	$('#table-shelves').append('<tr><th>Número</th><th>ID estantería</th><th>ID situación</th><th>ID producto</th></tr>');
 	var result = "";
 	if(response != "[]"){
 		var json = JSON.parse(response);
 		$.each(json, function(k,v){
 			result += '<tr>';
+			result += '<td>'+(num++)+'</td>';
 			$.each(v, function(ke,va){
 				result += '<td>'+va+'</td>';
 			});

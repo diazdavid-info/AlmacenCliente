@@ -213,4 +213,67 @@ switch ($_GET["typeRequest"]){
 		$api_response_body = substr($api_response, $api_response_info['header_size']);
 		echo $api_response_body;
 		break;
+	case "sendClient":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveClient?name=" . $_GET['name'] . "&surname=" . $_GET['surname'] .
+		"&telephone=" . $_GET['telephone'] . "&address=" . $_GET['address']);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "sendOrder":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveOrder?date=" . $_GET['date'] . "&person=" . $_GET['person'] .
+		"&price=" . $_GET['price']);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "sendLoad":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveLoad?company=" . $_GET['company'] . "&driver=" . $_GET['driver'] .
+		"&vehicle=" . $_GET['vehicle'] . "&date=" . $_GET['date'] . "&time=" . $_GET['time'] . "&worker=" . $_GET['worker']);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "sendLoadOrders":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveLoadOrders?load=" . $_GET['load'] . "&order=" . $_GET['order']);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
+	case "sendOrderProduct":
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_URL, $service_url . "saveProductOrder?asin=" . $_GET['asin'] . "&order=" . $_GET['order']);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		$api_response = curl_exec($ch);
+		$api_response_info = curl_getinfo($ch);
+		curl_close($ch);
+		$api_response_header = trim(substr($api_response, 0, $api_response_info['header_size']));
+		$api_response_body = substr($api_response, $api_response_info['header_size']);
+		echo $api_response_body;
+		break;
 }
